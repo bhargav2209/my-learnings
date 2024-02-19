@@ -16,10 +16,3 @@ console.log('json.prop value ==>', prop);
 console.log('json.func value ==>', func);
 console.log(func());
 
-//
-// console.log('\n\n\n===========================');
-// console.log('Using require with dot notation');
-// console.log('===========================');
-// console.log('json.prop1 value ==>', require('./json-export').prop1);
-// console.log('json.func1 value ==>', require('./json-export').func1);
-// console.log(require('./json-export').func1());
