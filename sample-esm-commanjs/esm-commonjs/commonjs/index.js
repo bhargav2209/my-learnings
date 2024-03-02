@@ -14,7 +14,7 @@ console.log('===========================');
 const {prop, func} = require('./json-export');
 console.log('json.prop value ==>', prop);
 console.log('json.func value ==>', func);
-console.log(func1());
+console.log(func());
 
 
 console.log('\n\n\n===========================');

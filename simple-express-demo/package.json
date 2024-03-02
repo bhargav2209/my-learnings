@@ -1,5 +1,5 @@
 {
-  "name": "esm-commonjs",
+  "name": "simple-express-demo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "nodemon": "^3.0.3"
+    "express": "^4.18.3"
   }
 }
