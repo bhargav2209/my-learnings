@@ -5,14 +5,23 @@ import './App.css';
 function App() {
     const [isLoading, setLoading] = useState(false);
     const [isSuccess, setSuccess] = useState(false);
+    const [error, setError] = useState(null);
+
     const handleClick = () => {
         setLoading(true);
         setTimeout(() => {
-            setLoading(false);
-            setSuccess(true);
-            setTimeout(() => {
-                setSuccess(false);
-            }, 2000);
+            const shouldFail = Math.random() < 0.5;
+            if (shouldFail) {
+                setLoading(false);
+                setError('Failed to load data. Please try again.');
+            } else {
+                setLoading(false);
+                setSuccess(true);
+                setTimeout(() => {
+                    setSuccess(false);
+                    setError(null);
+                }, 2000);
+            }
         }, 2000);
     };
 
@@ -30,7 +39,14 @@ function App() {
             <Button onClick={handleClick} disabled={isLoading}>
                 {isLoading ? 'Loading...' : 'Click me'}
             </Button>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
             {isSuccess && <p>Success! Data loaded successfully.</p>}
+
+            {/*<Button onClick={handleClick} disabled={isLoading}>*/}
+            {/*    {isLoading ? 'Loading...' : 'Click me'}*/}
+            {/*</Button>*/}
+            {/*{isSuccess && <p>Success! Data loaded successfully.</p>}*/}
+
             {/*<Button onClick={handleClick} disabled={isLoading}>*/}
             {/*    {isLoading ? 'Loading...' : 'Click me'}*/}
             {/*</Button>*/}
