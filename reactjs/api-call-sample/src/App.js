@@ -4,13 +4,18 @@ import './App.css';
 
 function App() {
     const [isLoading, setLoading] = useState(false);
-
+    const [isSuccess, setSuccess] = useState(false);
     const handleClick = () => {
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-        }, 3000);
+            setSuccess(true);
+            setTimeout(() => {
+                setSuccess(false);
+            }, 2000);
+        }, 2000);
     };
+
 
     // const [data, setData] = useState();
     // const handleDataSet = () => {
@@ -25,6 +30,10 @@ function App() {
             <Button onClick={handleClick} disabled={isLoading}>
                 {isLoading ? 'Loading...' : 'Click me'}
             </Button>
+            {isSuccess && <p>Success! Data loaded successfully.</p>}
+            {/*<Button onClick={handleClick} disabled={isLoading}>*/}
+            {/*    {isLoading ? 'Loading...' : 'Click me'}*/}
+            {/*</Button>*/}
             {/*<Button onClick={handleDataSet}>Checking states</Button>*/}
         </div>
     );
