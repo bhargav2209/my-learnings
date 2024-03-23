@@ -3,35 +3,21 @@ import { Button } from 'antd';
 import './App.css';
 
 function App() {
-    const [isLoading, setLoading] = useState(false);
-    const [isSuccess, setSuccess] = useState(false);
-    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [apiResponseData, setApiResponseData] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
 
-    const handleClick = () => {
-        setLoading(true);
-        setTimeout(() => {
-            const shouldFail = Math.random() < 0.5;
-            if (shouldFail) {
-                setLoading(false);
-                setError('Failed to load data. Please try again.');
-            } else {
-                setLoading(false);
-                setSuccess(true);
-                setTimeout(() => {
-                    setSuccess(false);
-                    setError(null);
-                }, 2000);
-            }
-        }, 2000);
+    const handleClick = async () => {
+        setIsLoading(true);
+        try{
+            await new Promise((resolve)=> setTimeout(resolve, 2000));
+            setApiResponseData(true);
+        } catch(e){
+            setErrorMessage('Failed to load data. Please try again.');
+        } finally{
+            setIsLoading(false);
+        }
     };
-
-
-    // const [data, setData] = useState();
-    // const handleDataSet = () => {
-    //    setData('Data Details');
-    //    console.log(data);
-    // }
-
 
     return (
         <div className="App">
@@ -39,18 +25,8 @@ function App() {
             <Button onClick={handleClick} disabled={isLoading}>
                 {isLoading ? 'Loading...' : 'Click me'}
             </Button>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {isSuccess && <p>Success! Data loaded successfully.</p>}
-
-            {/*<Button onClick={handleClick} disabled={isLoading}>*/}
-            {/*    {isLoading ? 'Loading...' : 'Click me'}*/}
-            {/*</Button>*/}
-            {/*{isSuccess && <p>Success! Data loaded successfully.</p>}*/}
-
-            {/*<Button onClick={handleClick} disabled={isLoading}>*/}
-            {/*    {isLoading ? 'Loading...' : 'Click me'}*/}
-            {/*</Button>*/}
-            {/*<Button onClick={handleDataSet}>Checking states</Button>*/}
+            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+            {apiResponseData && <p>Success! Data loaded successfully.</p>}
         </div>
     );
 }
