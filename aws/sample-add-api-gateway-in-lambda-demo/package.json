@@ -1,0 +1,11 @@
+{
+  "name": "sample-add-api-gateway-in-lambda-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "aws-cdk-lib": "^2.134.0",
+    "aws-lambda": "^1.0.7",
+    "aws-sdk": "^2.1587.0"
+  }
+}
