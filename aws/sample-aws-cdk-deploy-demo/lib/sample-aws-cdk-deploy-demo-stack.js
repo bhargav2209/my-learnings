@@ -1,6 +1,7 @@
 const { Stack, Duration } = require('aws-cdk-lib');
 const sqs = require('aws-cdk-lib/aws-sqs');
 const lambda = require('aws-cdk-lib/aws-lambda');
+const apigateway = require('aws-cdk-lib/aws-apigateway');
 
 class SampleAwsCdkDeployDemoStack extends Stack {
   /**
@@ -12,12 +13,10 @@ class SampleAwsCdkDeployDemoStack extends Stack {
   constructor(scope, id, props) {
     super(scope, id, props);
 
-    // Create an SQS queue
     const queue = new sqs.Queue(this, 'SampleAwsCdkDeployDemoQueue', {
       visibilityTimeout: Duration.seconds(300)
     });
 
-    // Create a Lambda function
     const lambdaFn = new lambda.Function(this, 'SampleLambdaFunction', {
       runtime: lambda.Runtime.NODEJS_18_X,
       handler: 'index.handler',
@@ -30,8 +29,12 @@ class SampleAwsCdkDeployDemoStack extends Stack {
       };`),
     });
 
-    // Grant permission to Lambda function to send messages to the SQS queue
     queue.grantSendMessages(lambdaFn);
+    const api = new apigateway.RestApi(this, 'SampleApi', {
+      restApiName: 'SampleApi',
+    });
+    const resource = api.root.addResource('hello');
+    const method = resource.addMethod('GET', new apigateway.LambdaIntegration(lambdaFn));
   }
 }
 
