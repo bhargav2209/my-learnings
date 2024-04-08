@@ -5,6 +5,6 @@ const { SampleAwsCdkDeployDemoStack } = require('../lib/sample-aws-cdk-deploy-de
 
 const app = new cdk.App();
 new SampleAwsCdkDeployDemoStack(app, 'SampleAwsCdkDeployDemoStack', {
-  env: { account: '263546120889', region: 'us-east-2' },
+  env: { account: '11111111', region: 'abc-xyz-2' },
 });
 
