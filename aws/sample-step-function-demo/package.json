@@ -1,0 +1,19 @@
+{
+  "name": "simple-express-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon my-lambda.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-cdk/aws-lambda": "^1.204.0",
+    "@aws-cdk/aws-lambda-nodejs": "^1.204.0",
+    "@aws-cdk/aws-stepfunctions": "^1.204.0",
+    "@aws-cdk/aws-stepfunctions-tasks": "^1.204.0",
+    "@aws-cdk/core": "^1.204.0"
+  }
+}
