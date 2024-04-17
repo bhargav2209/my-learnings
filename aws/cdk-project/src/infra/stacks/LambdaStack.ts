@@ -5,7 +5,7 @@ import { join } from "path";
 import { LambdaIntegration } from "aws-cdk-lib/aws-apigateway";
 import { ITable } from "aws-cdk-lib/aws-dynamodb";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
-import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
+import {Effect, PolicyStatement} from "aws-cdk-lib/aws-iam";
 
 interface LambdaStackProps extends StackProps{
     spacesTable: ITable
@@ -13,30 +13,30 @@ interface LambdaStackProps extends StackProps{
 
 export class LambdaStack extends Stack{
 
-    public readonly helloLambdaIntegration: LambdaIntegration
+    public readonly spacesLambdaIntegration: LambdaIntegration
 
     constructor(scope: Construct, id: string, props: LambdaStackProps) {
         super(scope, id, props)
 
-        const helloLambda = new NodejsFunction(this, 'HelloLambda', {
+        const spacesLambda = new NodejsFunction(this, 'SpacesLambda', {
             runtime: Runtime.NODEJS_16_X,
             handler: 'handler',
-            entry: (join(__dirname, '..', '..', 'services', 'hello.ts')),
+            entry: (join(__dirname, '..', '..', 'services', 'spaces', 'handler.ts')),
             environment: {
                 TABLE_NAME: props.spacesTable.tableName
             }
         });
 
-        helloLambda.addToRolePolicy(new PolicyStatement({
+        spacesLambda.addToRolePolicy(new PolicyStatement({
             effect: Effect.ALLOW,
-            actions: [
-                's3:ListAllMyBuckets',
-                's3:ListBucket'
-            ],
-            resources: ["*"] // bad practice
+            resources: [props.spacesTable.tableArn],
+            actions:[
+                'dynamodb:PutItem'
+            ]
         }))
+        
 
-        this.helloLambdaIntegration = new LambdaIntegration(helloLambda);
+        this.spacesLambdaIntegration = new LambdaIntegration(spacesLambda);
 
     }
 }
